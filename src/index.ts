@@ -347,6 +347,14 @@ summary::-webkit-details-marker{display:none}
 summary::after{content:"+";float:right;color:var(--accent);font-weight:700}
 details[open] summary::after{content:"–"}
 details p{margin:10px 0 0;color:var(--muted);font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 14px}
+.cat{padding:16px}
+.cat h3,.lim h3{margin:0 0 4px;font-size:16px;letter-spacing:-.01em}
+.cat p{margin:0;font-size:14px;color:var(--muted);line-height:1.5}
+.lim{margin-bottom:12px}
+.lim ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:15px}
+.lim li{margin:3px 0}
+.tip{font-size:14px;color:var(--muted);margin:4px 0 0}
 footer{padding:40px 0 34px;color:var(--muted);font-size:14px}
 </style>
 </head>
@@ -361,13 +369,45 @@ footer{padding:40px 0 34px;color:var(--muted);font-size:14px}
       <input id="u" type="url" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="https://example.com/file.pdf" aria-label="File URL">
       <button class="btn" id="b" type="submit">Analyze Link</button>
     </form>
-    <p class="hint">Direct file links only (http/https), up to 100 MB.</p>
+    <p class="hint">Direct file links only · up to 100 MB · no YouTube or streaming sites.</p>
     <div id="out" aria-live="polite"></div>
   </div>
 
   <section>
+    <h2>What you can download</h2>
+    <div class="grid">
+      <div class="box cat"><h3>Documents</h3><p>PDF, DOCX, XLSX, PPTX, TXT, CSV</p></div>
+      <div class="box cat"><h3>Images</h3><p>JPG, PNG, WEBP, GIF, SVG</p></div>
+      <div class="box cat"><h3>Audio</h3><p>MP3, WAV, M4A, OGG, FLAC</p></div>
+      <div class="box cat"><h3>Video</h3><p>MP4, WEBM, MKV (under 100 MB)</p></div>
+      <div class="box cat"><h3>Archives</h3><p>ZIP, RAR, 7Z, TAR, GZ</p></div>
+      <div class="box cat"><h3>Other files</h3><p>EPUB, JSON, XML and more</p></div>
+    </div>
+    <div class="box lim">
+      <h3>Limits</h3>
+      <ul>
+        <li>Maximum file size: 100 MB</li>
+        <li>The link must point straight to a file (http or https)</li>
+        <li>The remote server must allow the download</li>
+      </ul>
+    </div>
+    <div class="box lim">
+      <h3>Not supported</h3>
+      <ul>
+        <li>Web pages, YouTube, TikTok, Instagram and other streaming sites</li>
+        <li>Share pages from Google Drive, Dropbox or Mediafire</li>
+        <li>Files behind a login or paywall</li>
+        <li>Executable and installer files (.exe, .msi, .apk, .bat, .sh, .jar)</li>
+      </ul>
+    </div>
+    <p class="tip">Tip: a direct link usually ends in a file name like .pdf or .zip. If opening it in your browser shows a web page, it won't work here.</p>
+  </section>
+
+  <section>
     <h2>FAQ</h2>
-    <details><summary>Which links work?</summary><p>Direct links that point straight to a file, like a PDF, image, ZIP or audio file. Links to web pages, streaming sites or files behind a login are not supported.</p></details>
+    <details><summary>What is a direct link?</summary><p>A link that goes straight to the file itself, for example https://example.com/report.pdf. A link to a page that merely contains a download button is not a direct link.</p></details>
+    <details><summary>Which links work?</summary><p>Direct links to documents, images, audio, video, archives and other files up to 100 MB. Web pages, streaming sites, cloud share pages and files behind a login are not supported.</p></details>
+    <details><summary>Why did I get a 403 error?</summary><p>Some websites refuse automated requests. This is the remote site's decision, and DownHit cannot work around it.</p></details>
     <details><summary>Is it safe?</summary><p>DownHit blocks private and local addresses, re-checks every redirect, limits file size to 100 MB and rejects executable and installer files. It cannot scan a file for viruses, so only download from sources you trust.</p></details>
     <details><summary>Do you store my files?</summary><p>No. The file is streamed to your device and is not saved on our side.</p></details>
     <details><summary>Why was my link rejected?</summary><p>Usually because it is a web page, too large, blocked for safety, or the server refused the request. The error message tells you which.</p></details>
@@ -405,12 +445,4 @@ footer{padding:40px 0 34px;color:var(--muted);font-size:14px}
     b.disabled=true;loading();
     fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:url})})
       .then(function(r){return r.json().catch(function(){return {}}).then(function(d){return {ok:r.ok,d:d}})})
-      .then(function(x){if(!x.ok)throw new Error(x.d.error||'Something went wrong.');result(x.d,url)})
-      .catch(function(err){error(err.message||'Network error.')})
-      .then(function(){b.disabled=false});
-  });
-})();
-</script>
-</body>
-</html>`;
-                                                     
+      .t
